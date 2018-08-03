@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Sockets</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+            var socket = io();  
+            $("#form").click(function(event){
+                event.preventDefault();
+                socket.emit('click');
+                
+            });
+            socket.on('show',function(data){
+                    $("#display").html(`The Button has been pushed ${data.Count} time(s)`)
+                });
+            $("#reset").click(function(event){
+                event.preventDefault();
+                socket.emit('reset');
+               
+            });
+        });        
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div  class="jumbotron">
+            <h1 class="text-center" id="display"></h1>
+        </div>
+        <button id="form" type="button" class="btn btn-primary btn-lg ">Push the epic button</button>
+        <button id="reset" type="button" class="btn btn-danger">Reset count</button>
+    </div>
+   
+</body>
+</html>
